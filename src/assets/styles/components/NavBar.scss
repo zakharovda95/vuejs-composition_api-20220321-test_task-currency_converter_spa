@@ -6,6 +6,7 @@
   width: 100%;
   height: 90px;
   border-bottom: 2px solid $main-color;
+  background-color: $layout-color;
 
   .navbar_content {
     display: flex;
@@ -14,17 +15,37 @@
     height: 100%;
     margin: 0 auto;
 
-    .navbar_content__button_group {
+    .navbar_content__links_group {
       display: flex;
       align-self: center;
+
+      .navbar_content__links_group___link {
+        display: flex;
+        align-self: center;
+        border: 2px solid $main-color;
+        padding: 5px;
+        font-size: 1.2em;
+        background-color: white;
+        margin-left: 15px;
+
+        .router_link {
+          text-decoration: none;
+          color: $main-color;
+        }
+        .navbar_content__links_group___link_active {
+          color: $active-color
+        }
+      }
+
     }
-    .navbar_content__logo {
-      display: flex;
-      align-self: center;
-      flex-direction: column;
-      font-size: 1.3em;
-      color: $main-color;
-      cursor: default;
+
+      .navbar_content__logo {
+        display: flex;
+        align-self: center;
+        flex-direction: column;
+        font-size: 1.3em;
+        color: $main-color;
+        cursor: default;
+      }
     }
   }
-}

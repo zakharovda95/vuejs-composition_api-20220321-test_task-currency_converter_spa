@@ -6,7 +6,9 @@
       </div>
     </header>
     <main>
-      <div class="main"></div>
+      <div class="main">
+        <router-view></router-view>
+      </div>
     </main>
   </div>
 </template>

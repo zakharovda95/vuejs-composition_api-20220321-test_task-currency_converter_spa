@@ -4,5 +4,10 @@
   flex-direction: column;
   justify-content: center;
   min-width: 420px;
-  background: $layout-color;
+}
+.main {
+  width: 70%;
+  min-width: 420px;
+  height: 100%;
+  margin: 0 auto;
 }
