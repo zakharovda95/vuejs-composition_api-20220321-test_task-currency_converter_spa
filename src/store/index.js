@@ -6,26 +6,26 @@ export const store = createStore({
 
   state() {
     return {
-      latestRates: {},
-      currencies: {},
+      baseCurrency: {
+        charCode: 'RUB',
+        nominal: 1,
+        name: 'Российский рубль',
+      },
+      currencies: null,
     };
   },
-  getters: {},
+  getters: {
+    CURRENCIES_DATA: state => state.currencies,
+    CURRENCIES_VALUTE: state => state.currencies.Valute,
+    CURRENCIES_DATE: state => state.currencies.PreviousDate,
+    BASE_CURRENCY: state => state.baseCurrency,
+  },
   mutations: {
     SET_CURRENCIES: (state, payload) => {
       state.currencies = payload;
     },
-    SET_LATEST_RATES: (state, payload) => {
-      state.latestRates = payload;
-    },
   },
   actions: {
-    GET_LATEST_RATES: async context => {
-      const response = await axios.get(
-        'https://www.cbr-xml-daily.ru/latest.js',
-      );
-      context.commit('SET_LATEST_RATES', response.data);
-    },
     GET_CURRENCIES: async context => {
       const response = await axios.get(
         'https://www.cbr-xml-daily.ru/daily_json.js',

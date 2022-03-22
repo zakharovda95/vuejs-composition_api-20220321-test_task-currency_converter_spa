@@ -1,0 +1,14 @@
+.currency_item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid teal;
+  .convertible_currency {
+    display: flex;
+    align-self: center;
+    color: teal;
+    font-size: 1.5em;
+  }
+}

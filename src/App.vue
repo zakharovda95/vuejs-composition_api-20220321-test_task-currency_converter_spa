@@ -15,11 +15,23 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue';
+import { onMounted } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
   name: 'App',
   components: {
     NavBar,
+  },
+
+  setup() {
+    const store = useStore();
+    const getCurrencies = () => {
+      store.dispatch('GET_CURRENCIES');
+    };
+    onMounted(() => {
+      getCurrencies();
+    });
   },
 };
 </script>

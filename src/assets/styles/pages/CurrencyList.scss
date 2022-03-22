@@ -1,0 +1,12 @@
+@import '../common/_constants.scss';
+.currency_list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .previous_date {
+    display: flex;
+    align-self: center;
+    color: $main-color;
+    margin: 5px;
+  }
+}
