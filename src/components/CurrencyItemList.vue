@@ -1,6 +1,10 @@
 <template>
   <div class="currency_item__list">
-    <div class="currency" v-for="currency in currenciesList" :key="currency.ID">
+    <div
+      class="currency"
+      v-for="currency in currenciesList"
+      :key="currency.charCode"
+    >
       <currency-item :item="currency"></currency-item>
     </div>
   </div>
@@ -17,8 +21,8 @@ export default {
   },
   setup() {
     const store = useStore();
-    const currenciesList = store.getters.CURRENCIES_VALUTE;
-
+    const currenciesList = store.getters.FORMATTED_CURRENCIES;
+    console.log(currenciesList);
     return {
       currenciesList,
     };

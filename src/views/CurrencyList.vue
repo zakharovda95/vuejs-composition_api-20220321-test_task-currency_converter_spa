@@ -24,7 +24,9 @@ export default {
   setup() {
     const store = useStore();
     const previousDate = computed(() =>
-      moment(store.getters.CURRENCIES_DATE).format('DD MMMM yy в H:mm.'),
+      moment(store.getters.CURRENCIES_PREVIOUS_DATE).format(
+        'DD MMMM yy в H:mm.',
+      ),
     );
     return {
       previousDate,
