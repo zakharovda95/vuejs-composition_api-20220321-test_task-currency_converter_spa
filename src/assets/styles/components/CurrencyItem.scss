@@ -39,4 +39,30 @@
       color: $currency-color;
     }
   }
+  .change_value {
+    display: flex;
+    align-self: center;
+    border: 1px solid black;
+    padding: 5px;
+    cursor: pointer;
+  }
+  .currency_difference {
+    display: flex;
+    align-self: center;
+    margin-right: 5px;
+    .currency_difference__value {
+      margin-right: 5px;
+    }
+    .currency_difference__icon{
+      display: flex;
+      align-self: center;
+    }
+  }
+
+  .high {
+    color: $high-currency;
+  }
+  .low {
+    color: $low-currency;
+  }
 }

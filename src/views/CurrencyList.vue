@@ -1,7 +1,7 @@
 <template>
   <div class="currency_list">
     <div class="previous_date">
-      <p>Время последнего обновления: {{ previousDate }}</p>
+      <p>Время последнего обновления: {{ prevDate }}</p>
     </div>
     <currency-item-list></currency-item-list>
   </div>
@@ -9,12 +9,8 @@
 
 <script>
 import CurrencyItemList from '@/components/CurrencyItemList.vue';
-import moment from 'moment';
-import 'moment/locale/ru';
-import { useStore } from 'vuex';
-import { computed } from 'vue';
 
-moment.locale('ru');
+import { useStore } from 'vuex';
 
 export default {
   name: 'CurrencyList',
@@ -23,13 +19,9 @@ export default {
   },
   setup() {
     const store = useStore();
-    const previousDate = computed(() =>
-      moment(store.getters.CURRENCIES_PREVIOUS_DATE).format(
-        'DD MMMM yy в H:mm.',
-      ),
-    );
+    const prevDate = store.getters.PREVIOUS_DATE;
     return {
-      previousDate,
+      prevDate,
     };
   },
 };

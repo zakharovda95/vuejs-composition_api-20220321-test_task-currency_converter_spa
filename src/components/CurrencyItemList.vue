@@ -21,8 +21,7 @@ export default {
   },
   setup() {
     const store = useStore();
-    const currenciesList = store.getters.FORMATTED_CURRENCIES;
-    console.log(currenciesList);
+    const currenciesList = store.state.currencies.formattedCurrency;
     return {
       currenciesList,
     };

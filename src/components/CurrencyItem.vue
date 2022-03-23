@@ -1,23 +1,39 @@
 <template>
   <div class="currency_item">
     <div class="convertible_currency">
-      <div class="convertable_currency__value">{{ nominal.toFixed(2) }}</div>
+      <div class="convertable_currency__value">
+        {{ $store.state.currencies.nominal.toFixed(2) }}
+      </div>
       <div class="convertable_currency__char_code">
-        {{ item.data.CharCode }}
+        {{ item.charCode }}
       </div>
     </div>
-    <div class="change_value">вжух</div>
+    <div class="change_value">&hArr;</div>
     <div class="base_currency">
       <div class="base_currency__value">{{ item.data.Value.toFixed(2) }}</div>
-      <div class="base_currency__char_code">{{ baseCurrency.charCode }}</div>
+      <div class="base_currency__char_code">
+        {{ $store.state.currencies.baseCurrency }}
+      </div>
+    </div>
+    <div class="currency_difference">
+      <div
+        class="currency_difference__value"
+        :class="{
+          high: +item.data.difference > 0,
+          low: +item.data.difference < 0,
+        }"
+      >
+        {{ item.data.difference }}
+      </div>
+      <div class="currency_difference__icon">
+        <slot v-if="+item.data.difference > 0"> &uarr;</slot>
+        <slot v-if="+item.data.difference < 0"> &darr; </slot>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { useStore } from 'vuex';
-//import { computed } from 'vue';
-
 export default {
   name: 'CurrencyItem',
   components: {},
@@ -27,15 +43,6 @@ export default {
       required: true,
       default: () => {},
     },
-  },
-  setup() {
-    const store = useStore();
-    const baseCurrency = store.getters.BASE_CURRENCY;
-    const nominal = store.getters.NOMINAL;
-    return {
-      baseCurrency,
-      nominal,
-    };
   },
 };
 </script>
