@@ -43,8 +43,9 @@ export default {
   setup() {
     const store = useStore();
     const change = id => {
-      store.commit('EXCHANGE', { id });
+      store.commit('EXCHANGE', id);
     };
+
     return {
       change,
     };

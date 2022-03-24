@@ -74,7 +74,6 @@ export const currenciesModule = {
     INIT_OBJECT: state => {
       state.viewArray = state.formattedCurrency.map(item => {
         return {
-          reverse: false,
           id: item.data.ID,
           leftNominal: state.nominal,
           leftCharCode: item.charCode,
@@ -84,23 +83,16 @@ export const currenciesModule = {
         };
       });
     },
-    EXCHANGE: (state, { id }) => {
+    EXCHANGE: (state, id) => {
       state.viewArray.forEach(elem => {
         if (elem.id === id) {
-          elem.rightCharCode = elem.leftCharCode;
-          elem.differenceRub /= elem.rightNominal;
-          elem.leftNominal = state.nominal;
-          elem.leftCharCode = state.baseCurrency;
-          elem.rightNominal = state.nominal / elem.rightNominal;
-        }
-      });
-    },
-
-    EXCHANGE_REVERSE: (state, { id }) => {
-      state.viewArray.forEach(elem => {
-        if (elem.id === id) {
-          elem.leftCharCode = elem.rightCharCode;
-          elem.rightCharCode = state.baseCurrency;
+          if (elem.rightCharCode === state.baseCurrency) {
+            elem.rightCharCode = elem.leftCharCode;
+            elem.leftCharCode = state.baseCurrency;
+          } else {
+            elem.leftCharCode = elem.rightCharCode;
+            elem.rightCharCode = state.baseCurrency;
+          }
           elem.differenceRub /= elem.rightNominal;
           elem.leftNominal = state.nominal;
           elem.rightNominal = state.nominal / elem.rightNominal;
