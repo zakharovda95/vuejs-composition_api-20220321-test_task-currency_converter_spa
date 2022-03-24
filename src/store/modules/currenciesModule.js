@@ -8,11 +8,9 @@ export const currenciesModule = {
     dateNow: Date.now(),
     unformattedCurrency: null,
     formattedCurrency: null,
+    viewArray: null,
     baseCurrency: 'RUB',
     nominal: 1,
-    hash: '',
-    viewArray: null,
-    viewArrayRub: null,
   }),
   getters: {
     DATE_NOW: state => {
@@ -59,7 +57,7 @@ export const currenciesModule = {
     },
     CALCULATE_DIFFERENCE: state => {
       return state.formattedCurrency.forEach(item => {
-        const difference = (item.data.Value - item.data.Previous).toFixed(2);
+        const difference = item.data.Value - item.data.Previous;
 
         if (difference > 0) {
           item.data.difference = `+${difference}`;
@@ -67,7 +65,7 @@ export const currenciesModule = {
         if (difference < 0) {
           item.data.difference = difference;
         }
-        if (difference == 0) {
+        if (difference === 0) {
           item.data.difference = difference.substring(1, difference.length);
         }
       });
@@ -75,35 +73,37 @@ export const currenciesModule = {
 
     INIT_OBJECT: state => {
       state.viewArray = state.formattedCurrency.map(item => {
-        const obj = {
+        return {
+          reverse: false,
           id: item.data.ID,
-          leftNominal: state.nominal.toFixed(2),
+          leftNominal: state.nominal,
           leftCharCode: item.charCode,
-          rightNominal: item.data.Value.toFixed(2),
+          rightNominal: item.data.Value,
           rightCharCode: state.baseCurrency,
-          differenceRub: Number(item.data.difference).toFixed(2),
+          differenceRub: +item.data.difference,
         };
-        return obj;
-      });
-      state.viewArrayRub = state.formattedCurrency.map(item => {
-        const obj = {
-          id: item.data.ID,
-          leftNominal: state.nominal.toFixed(2),
-          leftCharCode: state.baseCurrency,
-          rightNominal: (state.nominal / item.data.Value).toFixed(2),
-          rightCharCode: item.charCode,
-          differenceRub: (
-            Number(item.data.difference) / item.data.Value
-          ).toFixed(2),
-        };
-        return obj;
       });
     },
-    EXCHANGE: (state, item) => {
-      state.viewArrayRub.forEach((elem, index) => {
-        if (elem.id === item.id) {
-          state.hash = item;
-          state.viewArray[index] = elem;
+    EXCHANGE: (state, { id }) => {
+      state.viewArray.forEach(elem => {
+        if (elem.id === id) {
+          elem.rightCharCode = elem.leftCharCode;
+          elem.differenceRub /= elem.rightNominal;
+          elem.leftNominal = state.nominal;
+          elem.leftCharCode = state.baseCurrency;
+          elem.rightNominal = state.nominal / elem.rightNominal;
+        }
+      });
+    },
+
+    EXCHANGE_REVERSE: (state, { id }) => {
+      state.viewArray.forEach(elem => {
+        if (elem.id === id) {
+          elem.leftCharCode = elem.rightCharCode;
+          elem.rightCharCode = state.baseCurrency;
+          elem.differenceRub /= elem.rightNominal;
+          elem.leftNominal = state.nominal;
+          elem.rightNominal = state.nominal / elem.rightNominal;
         }
       });
     },

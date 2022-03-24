@@ -8,7 +8,7 @@
         {{ item.leftCharCode }}
       </div>
     </div>
-    <div class="change_value" @click="change(item)">&hArr;</div>
+    <div class="change_value" @click="change(item.id)">&hArr;</div>
     <div class="base_currency">
       <div class="base_currency__value">{{ item.rightNominal }}</div>
       <div class="base_currency__char_code">
@@ -42,8 +42,8 @@ export default {
   },
   setup() {
     const store = useStore();
-    const change = item => {
-      store.commit('EXCHANGE', item);
+    const change = id => {
+      store.commit('EXCHANGE', { id });
     };
     return {
       change,
