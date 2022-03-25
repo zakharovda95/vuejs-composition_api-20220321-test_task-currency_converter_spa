@@ -9,11 +9,11 @@ export const currenciesModule = {
     dateNow: Date.now(),
     unformattedCurrency: null,
     formattedCurrency: null,
-    viewArray: null,
-    searchArray: null,
+    viewArray: [],
     baseCurrency: 'RUB',
     nominal: 1,
     inputValue: '',
+    arr: null,
   }),
   getters: {
     DATE_NOW: state => {
@@ -24,15 +24,19 @@ export const currenciesModule = {
         'DD MMMM yy в H:mm.',
       );
     },
+    SEARCH_ARR: state => {
+      return state.viewArray.map(item => {
+        if (
+          item.leftCharCode
+            .toUpperCase()
+            .includes(state.inputValue.toUpperCase())
+        ) {
+          return item;
+        }
+      });
+    },
   },
   mutations: {
-    SEARCH_ARRAY: state => {
-      return (state.searchArray = state.viewArray.filter(item => {
-        return item.leftCharCode
-          .toUpperCase()
-          .includes(state.inputValue.toUpperCase());
-      }));
-    },
     SET_UNFORMATTED_CURRENCY: (state, payload) => {
       state.unformattedCurrency = payload;
     },

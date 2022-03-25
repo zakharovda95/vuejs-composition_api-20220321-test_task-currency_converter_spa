@@ -3,15 +3,13 @@
     class="ui_input"
     type="text"
     v-bind="$attrs"
+    :value="modelValue"
     @input="proxyValue = $event.target.value"
   />
 </template>
 
 <script>
 import { computed } from 'vue';
-
-import { useStore } from 'vuex';
-
 export default {
   name: 'UiInput',
   props: {
@@ -19,18 +17,18 @@ export default {
       type: String,
       default: 'input',
     },
+    modelValue: [String, Number],
   },
   inheritAttrs: false,
+  emits: ['update:modelValue'],
 
-  setup() {
-    const store = useStore();
+  setup(props, { emit }) {
     const proxyValue = computed({
       get() {
-        return store.state.currencies.inputValue;
+        return props.modelValue;
       },
       set(value) {
-        store.commit('UPDATE_VALUE', value);
-        store.commit('SEARCH_ARRAY');
+        emit('update:modelValue', value);
       },
     });
     return {

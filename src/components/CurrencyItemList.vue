@@ -1,7 +1,15 @@
 <template>
   <div class="currency_item__list">
-    <ui-input placeholder="Поиск..."></ui-input>
-    <div class="currency" v-for="currency in currenciesList" :key="currency.id">
+    <ui-input
+      placeholder="Поиск..."
+      :model-value="value"
+      @update:model-value="updateInput"
+    ></ui-input>
+    <div
+      class="currency"
+      v-for="currency in currenciesArray"
+      :key="currency.id"
+    >
       <currency-item :item="currency"></currency-item>
     </div>
   </div>
@@ -11,6 +19,7 @@
 import { useStore } from 'vuex';
 import CurrencyItem from '@/components/CurrencyItem.vue';
 import UiInput from '@/components/ui/UiInput.vue';
+import { computed } from 'vue';
 
 export default {
   name: 'CurrencyItemList',
@@ -20,10 +29,15 @@ export default {
   },
   setup() {
     const store = useStore();
-    const currenciesList = store.state.currencies.viewArray;
-    //const searchArray = store.state.currencies.searchArray;
+    const value = computed(() => store.state.currencies.inputValue);
+    ``;
+    const updateInput = payload => {
+      store.commit('UPDATE_VALUE', payload);
+    };
     return {
-      currenciesList,
+      updateInput,
+      //currenciesArray,
+      value,
     };
   },
 };

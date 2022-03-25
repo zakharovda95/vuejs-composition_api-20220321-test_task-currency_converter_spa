@@ -11,7 +11,7 @@
           class="router_link"
           :to="{ name: 'main' }"
         >
-          Список валют
+          Лента
         </router-link>
         <router-link
           active-class="navbar_content__links_group___link_active"
