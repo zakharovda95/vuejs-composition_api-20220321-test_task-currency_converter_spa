@@ -15,6 +15,7 @@ export default {
       default: 'button',
     },
   },
+
   setup(props) {
     const buttonType = computed(() => {
       if (props.tag === 'button') {

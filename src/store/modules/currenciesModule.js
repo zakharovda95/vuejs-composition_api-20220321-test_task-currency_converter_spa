@@ -10,8 +10,10 @@ export const currenciesModule = {
     unformattedCurrency: null,
     formattedCurrency: null,
     viewArray: null,
+    searchArray: null,
     baseCurrency: 'RUB',
     nominal: 1,
+    inputValue: '',
   }),
   getters: {
     DATE_NOW: state => {
@@ -24,6 +26,13 @@ export const currenciesModule = {
     },
   },
   mutations: {
+    SEARCH_ARRAY: state => {
+      return (state.searchArray = state.viewArray.filter(item => {
+        return item.leftCharCode
+          .toUpperCase()
+          .includes(state.inputValue.toUpperCase());
+      }));
+    },
     SET_UNFORMATTED_CURRENCY: (state, payload) => {
       state.unformattedCurrency = payload;
     },
@@ -89,6 +98,9 @@ export const currenciesModule = {
           elem.rightNominal = state.nominal / elem.rightNominal;
         }
       });
+    },
+    UPDATE_VALUE: (state, payload) => {
+      state.inputValue = payload;
     },
   },
   actions: {
