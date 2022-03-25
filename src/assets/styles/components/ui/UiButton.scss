@@ -1,0 +1,8 @@
+@import '../../common/_constants.scss';
+.ui_button {
+  padding: 10px;
+  font-size: 1.3em;
+  background: none;
+  border: 1px solid $main-color;
+  cursor: pointer;
+}
