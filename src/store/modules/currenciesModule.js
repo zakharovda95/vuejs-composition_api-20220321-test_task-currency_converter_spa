@@ -14,7 +14,17 @@ export const currenciesModule = {
     nominal: 1,
     inputValueName: '',
     inputValueCode: '',
-    arr: null,
+    dropdownOptions: [
+      {
+        value: 'charCode',
+        name: 'По названию',
+      },
+      {
+        value: 'numCode',
+        name: 'По коду',
+      },
+    ],
+    selectedValue: 'charCode',
   }),
   getters: {
     DATE_NOW: state => {
@@ -27,12 +37,12 @@ export const currenciesModule = {
     },
     SEARCH_ARR: state => {
       return state.viewArray.filter(item => {
-        if (state.inputValueName) {
+        if (state.selectedValue === 'charCode') {
           return item.leftCharCode
             .toLowerCase()
             .includes(state.inputValueName.toLowerCase());
         }
-        if (state.inputValueCode) {
+        if (state.selectedValue === 'numCode') {
           return item.code.includes(state.inputValueCode);
         }
       });
@@ -111,6 +121,9 @@ export const currenciesModule = {
     },
     UPDATE_VALUE_CODE: (state, payload) => {
       state.inputValueCode = payload;
+    },
+    SELECT_VALUE: (state, payload) => {
+      state.selectedValue = payload;
     },
   },
   actions: {

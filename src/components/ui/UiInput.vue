@@ -1,7 +1,7 @@
 <template>
   <input
     class="ui_input"
-    type="text"
+    :type="type"
     v-bind="$attrs"
     :value="modelValue"
     @input="proxyValue = $event.target.value"
@@ -13,6 +13,7 @@ import { computed } from 'vue';
 export default {
   name: 'UiInput',
   props: {
+    type: String,
     tag: {
       type: String,
       default: 'input',

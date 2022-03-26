@@ -1,4 +1,5 @@
 <template>
+  <div class="code">{{ item.code }}</div>
   <div class="currency_item">
     <div class="convertible_currency">
       <div class="convertable_currency__value">
