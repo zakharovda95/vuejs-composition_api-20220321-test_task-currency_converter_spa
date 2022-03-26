@@ -26,11 +26,8 @@ export default {
 
   setup() {
     const store = useStore();
-    const getCurrencies = () => {
-      store.dispatch('INIT_CURRENCIES');
-    };
     onMounted(() => {
-      getCurrencies();
+      store.dispatch('INIT_CURRENCIES');
     });
   },
 };

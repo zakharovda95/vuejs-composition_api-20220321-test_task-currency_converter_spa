@@ -23,7 +23,7 @@ export const currenciesModule = {
         name: 'По коду',
       },
     ],
-    selectedValue: 'charCode',
+    selectedValue: undefined,
   }),
   getters: {
     DATE_NOW: state => {
@@ -121,6 +121,9 @@ export const currenciesModule = {
     UPDATE_VALUE_CODE: (state, payload) => {
       state.inputValueCode = payload;
     },
+    INIT_SELECT_VALUE_CURRENCIES: state => {
+      state.selectedValue = state.dropdownOptions[0].value;
+    },
     SELECT_VALUE: (state, payload) => {
       state.inputValueCode = '';
       state.inputValueName = '';
@@ -128,16 +131,17 @@ export const currenciesModule = {
     },
   },
   actions: {
-    INIT_CURRENCIES: async context => {
+    INIT_CURRENCIES: async ({ commit }) => {
       try {
         const response = await axios.get(
           'https://www.cbr-xml-daily.ru/daily_json.js',
         );
-        await context.commit('SET_UNFORMATTED_CURRENCY', response.data);
-        await context.commit('CONVERT_CURRENCY_OBJECT');
-        await context.commit('FORMAT_CURRENCIES');
-        await context.commit('CALCULATE_DIFFERENCE');
-        await context.commit('INIT_OBJECT');
+        await commit('SET_UNFORMATTED_CURRENCY', response.data);
+        await commit('CONVERT_CURRENCY_OBJECT');
+        await commit('FORMAT_CURRENCIES');
+        await commit('CALCULATE_DIFFERENCE');
+        await commit('INIT_OBJECT');
+        await commit('INIT_SELECT_VALUE_CURRENCIES');
       } catch (error) {
         console.log(error);
       }

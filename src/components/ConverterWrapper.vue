@@ -23,10 +23,13 @@ export default {
   setup() {
     const store = useStore();
     const options = computed(() => store.getters.CONVERTER_OPTIONS);
+    store.commit('INIT_SELECTED_VALUE_CONVERTER', options.value[0].value);
     const selectedValue = computed(() => store.state.converter.selectedValue);
     const selectValue = payload => {
       store.commit('SELECT_VALUE_CONVERTER', payload);
+      store.dispatch('SET_SELECTED_CURRENCY');
     };
+    store.dispatch('SET_SELECTED_CURRENCY');
     return {
       options,
       selectedValue,

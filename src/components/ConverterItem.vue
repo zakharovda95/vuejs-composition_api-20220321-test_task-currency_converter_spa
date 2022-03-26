@@ -1,15 +1,31 @@
 <template>
   <div class="converter_item">
-    <div class="converter_item__input">
-      <ui-input class="converter_input" type="number"></ui-input>
+    <div class="converter_item__input_group">
+      <div class="converter_item__input">
+        <ui-input
+          class="converter_input"
+          type="number"
+          :model-value="inputValue"
+          @update:model-value="updateValue"
+        ></ui-input>
+      </div>
+      <div class="converter_item__left_char_code">
+        {{ selectedCurrency.leftCharCode }}
+      </div>
     </div>
     <div class="converter_item__change">
-      <ui-button class="converter_button__change" tag="button"
+      <ui-button class="converter_button__change" tag="button" @click="exchange"
         >&hArr;</ui-button
       >
     </div>
-    <div class="converter_item__display"></div>
-    <div class="converter_item__char_code"></div>
+    <div class="converter_item__display">
+      <div class="converter_item__right_numbers">
+        {{ selectedCurrency.rightNominal.toFixed(2) }}
+      </div>
+      <div class="converter_item__right_char_code">
+        {{ selectedCurrency.rightCharCode }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -26,10 +42,22 @@ export default {
   },
   setup() {
     const store = useStore();
-    const selectedCurrency = computed(() => store.getters.SELECTED_CURRENCY);
-    console.log(selectedCurrency);
+    const selectedCurrency = computed(
+      () => store.state.converter.selectedCurrency,
+    );
+    const inputValue = computed(() => store.state.converter.inputValue);
+    const updateValue = payload => {
+      store.commit('UPDATE_INPUT_VALUE', Number(payload));
+      store.commit('CALCULATE_VALUE');
+    };
+    const exchange = () => {
+      store.commit('EXCHANGE_VALUE');
+    };
     return {
       selectedCurrency,
+      inputValue,
+      updateValue,
+      exchange,
     };
   },
 };

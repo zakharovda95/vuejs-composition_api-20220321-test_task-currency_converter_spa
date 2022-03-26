@@ -1,7 +1,8 @@
 export const converterModule = {
   state: () => ({
-    selectedValue: 'AUD',
-    inputValue: '',
+    selectedValue: undefined,
+    baseCurrency: 'RUB',
+    inputValue: 1,
     selectedCurrency: null,
   }),
   getters: {
@@ -18,9 +19,45 @@ export const converterModule = {
     SELECT_VALUE_CONVERTER: (state, payload) => {
       state.selectedValue = payload;
     },
-    // SET_SELECTED_CURRENCY: (state, payload) => {
-    //   if ()
-    // },
+    INIT_SELECTED_VALUE_CONVERTER: (state, payload) => {
+      state.selectedValue = payload;
+    },
+    SET_SELECTED_CURRENCY_DATA: (state, payload) => {
+      state.selectedCurrency = {
+        leftNominal: state.inputValue,
+        leftCharCode: payload.charCode,
+        rightNominal: payload.data.Value,
+        rightCharCode: state.baseCurrency,
+      };
+    },
+    UPDATE_INPUT_VALUE: (state, payload) => {
+      state.inputValue = payload;
+    },
+    CALCULATE_VALUE: state => {
+      state.selectedCurrency.rightNominal *= state.inputValue;
+    },
+    EXCHANGE_VALUE: state => {
+      if (state.selectedCurrency.rightCharCode === state.baseCurrency) {
+        state.selectedCurrency.rightCharCode =
+          state.selectedCurrency.leftCharCode;
+        state.selectedCurrency.leftCharCode = state.baseCurrency;
+      } else {
+        state.selectedCurrency.leftCharCode =
+          state.selectedCurrency.rightCharCode;
+        state.selectedCurrency.rightCharCode = state.baseCurrency;
+      }
+      state.selectedCurrency.rightNominal =
+        (state.inputValue * state.inputValue) /
+        state.selectedCurrency.rightNominal;
+    },
   },
-  actions: {},
+  actions: {
+    SET_SELECTED_CURRENCY: context => {
+      context.rootState.currencies.formattedCurrency.forEach(item => {
+        if (item.charCode === context.state.selectedValue) {
+          context.commit('SET_SELECTED_CURRENCY_DATA', item);
+        }
+      });
+    },
+  },
 };

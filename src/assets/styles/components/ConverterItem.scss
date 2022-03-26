@@ -8,18 +8,29 @@
   height: 30vh;
   border: 4px solid $main-color;
   border-radius: 18px;
-  .converter_item__input {
+  .converter_item__input_group{
     display: flex;
-    margin: 25px;
-    width: 30%;
-    .converter_input {
-      border: 2px solid $main-color;
+    align-items: center;
+    .converter_item__left_char_code {
       display: flex;
       align-self: center;
-      width: 100%;
-      height: 10vh;
-      border-radius: 8px;
+      margin: 15px;
+      color: $main-color;
       font-size: 2em;
+    }
+    .converter_item__input {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 25px;
+      .converter_input {
+        border: 2px solid $main-color;
+        display: flex;
+        align-self: center;
+        width: 100%;
+        height: 10vh;
+        border-radius: 8px;
+        font-size: 2em;
+      }
     }
   }
   .converter_item__change {
@@ -35,6 +46,8 @@
   }
   .converter_item__display {
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     align-self: center;
     border: 2px solid $main-color;
     background: $layout-color;
@@ -43,9 +56,14 @@
     width: 30%;
     height: 10vh;
     color: $main-color;
-  }
-  .converter_item__char_code {
-    display: flex;
-    align-self: center;
+
+    .converter_item__right_char_code, .converter_item__right_numbers {
+      display: flex;
+      align-self: center;
+      font-size: 1.8em;
+    }
+    .converter_item__right_char_code {
+      margin-left: 5px;
+    }
   }
 }
