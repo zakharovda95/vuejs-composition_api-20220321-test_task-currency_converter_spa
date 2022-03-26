@@ -9,10 +9,11 @@ export const currenciesModule = {
     dateNow: Date.now(),
     unformattedCurrency: null,
     formattedCurrency: null,
-    viewArray: [],
+    viewArray: null,
     baseCurrency: 'RUB',
     nominal: 1,
-    inputValue: '',
+    inputValueName: '',
+    inputValueCode: '',
     arr: null,
   }),
   getters: {
@@ -25,13 +26,14 @@ export const currenciesModule = {
       );
     },
     SEARCH_ARR: state => {
-      return state.viewArray.map(item => {
-        if (
-          item.leftCharCode
-            .toUpperCase()
-            .includes(state.inputValue.toUpperCase())
-        ) {
-          return item;
+      return state.viewArray.filter(item => {
+        if (state.inputValueName) {
+          return item.leftCharCode
+            .toLowerCase()
+            .includes(state.inputValueName.toLowerCase());
+        }
+        if (state.inputValueCode) {
+          return item.code.includes(state.inputValueCode);
         }
       });
     },
@@ -79,6 +81,7 @@ export const currenciesModule = {
       state.viewArray = state.formattedCurrency.map(item => {
         return {
           id: item.data.ID,
+          code: item.data.NumCode,
           leftNominal: state.nominal,
           leftCharCode: item.charCode,
           rightNominal: item.data.Value,
@@ -103,8 +106,11 @@ export const currenciesModule = {
         }
       });
     },
-    UPDATE_VALUE: (state, payload) => {
-      state.inputValue = payload;
+    UPDATE_VALUE_NAME: (state, payload) => {
+      state.inputValueName = payload;
+    },
+    UPDATE_VALUE_CODE: (state, payload) => {
+      state.inputValueCode = payload;
     },
   },
   actions: {

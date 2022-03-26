@@ -22,7 +22,7 @@
         </router-link>
       </div>
       <div class="navbar_content__date">
-        {{ $store.getters.DATE_NOW }}
+        {{ dateNow }}
       </div>
     </div>
   </div>
@@ -30,9 +30,18 @@
 
 <script>
 import 'moment/locale/ru';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
   name: 'NavBar',
+  setup() {
+    const store = useStore();
+    const dateNow = computed(() => store.getters.DATE_NOW);
+    return {
+      dateNow,
+    };
+  },
 };
 </script>
 

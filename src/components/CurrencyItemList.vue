@@ -1,15 +1,18 @@
 <template>
   <div class="currency_item__list">
-    <ui-input
-      placeholder="Поиск..."
-      :model-value="value"
-      @update:model-value="updateInput"
-    ></ui-input>
-    <div
-      class="currency"
-      v-for="currency in currenciesArray"
-      :key="currency.id"
-    >
+    <div class="ui_input__group">
+      <ui-input
+        placeholder="Поиск по коду..."
+        :model-value="valueCode"
+        @update:model-value="updateInputCode"
+      ></ui-input>
+      <ui-input
+        placeholder="Поиск по имени..."
+        :model-value="valueName"
+        @update:model-value="updateInputName"
+      ></ui-input>
+    </div>
+    <div class="currency" v-for="currency in currenciesList" :key="currency.id">
       <currency-item :item="currency"></currency-item>
     </div>
   </div>
@@ -29,15 +32,21 @@ export default {
   },
   setup() {
     const store = useStore();
-    const value = computed(() => store.state.currencies.inputValue);
-    ``;
-    const updateInput = payload => {
-      store.commit('UPDATE_VALUE', payload);
+    const currenciesList = computed(() => store.getters.SEARCH_ARR);
+    const valueName = computed(() => store.state.currencies.inputValueName);
+    const valueCode = computed(() => store.state.currencies.inputValueCode);
+    const updateInputName = payload => {
+      store.commit('UPDATE_VALUE_NAME', payload);
+    };
+    const updateInputCode = payload => {
+      store.commit('UPDATE_VALUE_CODE', payload);
     };
     return {
-      updateInput,
-      //currenciesArray,
-      value,
+      currenciesList,
+      updateInputName,
+      updateInputCode,
+      valueName,
+      valueCode,
     };
   },
 };
