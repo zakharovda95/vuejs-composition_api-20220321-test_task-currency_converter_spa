@@ -1,0 +1,17 @@
+@import '../common/_constants.scss';
+.converter_wrapper {
+  display: flex;
+  flex-direction: column;
+  .converter_dropdown {
+    display: flex;
+    align-self: flex-start;
+    margin: 20px;
+    .converter__select {
+      padding: 10px;
+      color: $main-color;
+      border-radius: 8px;
+      font-size: 1.8em;
+      font-weight: bold;
+    }
+  }
+}

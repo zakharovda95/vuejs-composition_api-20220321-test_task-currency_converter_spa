@@ -1,7 +1,6 @@
 import axios from 'axios';
 import moment from 'moment';
 import 'moment/locale/ru';
-
 moment.locale('ru');
 
 export const currenciesModule = {
@@ -123,6 +122,8 @@ export const currenciesModule = {
       state.inputValueCode = payload;
     },
     SELECT_VALUE: (state, payload) => {
+      state.inputValueCode = '';
+      state.inputValueName = '';
       state.selectedValue = payload;
     },
   },

@@ -1,11 +1,10 @@
 <template>
-  <select class="ui_dropdown" @change="proxyDropdown = $event.target.value">
-    <option
-      v-for="option in options"
-      :value="option.value"
-      :key="option.name"
-      v-bind="$attrs"
-    >
+  <select
+    class="ui_dropdown"
+    v-bind="$attrs"
+    @change="proxyDropdown = $event.target.value"
+  >
+    <option v-for="option in options" :value="option.value" :key="option.name">
       {{ option.name }}
     </option>
   </select>

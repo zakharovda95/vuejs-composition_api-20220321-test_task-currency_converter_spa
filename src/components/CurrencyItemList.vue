@@ -2,6 +2,7 @@
   <div class="currency_item__list">
     <div class="ui_input__group">
       <ui-input
+        class="ui_input__search_number"
         v-if="selectedValue === 'numCode'"
         placeholder="Поиск по коду..."
         :model-value="valueCode"
@@ -9,6 +10,7 @@
         @update:model-value="updateInputCode"
       ></ui-input>
       <ui-input
+        class="ui_input__search_name"
         v-if="selectedValue === 'charCode'"
         placeholder="Поиск по названию..."
         :model-value="valueName"

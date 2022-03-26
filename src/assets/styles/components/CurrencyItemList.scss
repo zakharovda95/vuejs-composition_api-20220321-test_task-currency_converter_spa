@@ -5,4 +5,7 @@
 .ui_input__group {
   display: flex;
   justify-content: space-between;
+  .ui_input__search_number, .ui_input__search_name {
+  width: 90vw;
+  }
 }

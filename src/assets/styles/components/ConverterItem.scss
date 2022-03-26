@@ -1,0 +1,51 @@
+@import '../common/_constants.scss';
+.converter_item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 15px;
+  width: 100%;
+  height: 30vh;
+  border: 4px solid $main-color;
+  border-radius: 18px;
+  .converter_item__input {
+    display: flex;
+    margin: 25px;
+    width: 30%;
+    .converter_input {
+      border: 2px solid $main-color;
+      display: flex;
+      align-self: center;
+      width: 100%;
+      height: 10vh;
+      border-radius: 8px;
+      font-size: 2em;
+    }
+  }
+  .converter_item__change {
+    display: flex;
+    .converter_button__change {
+      display: flex;
+      align-self: center;
+      border-radius: 8px;
+      color: $main-color;
+      font-weight: bold;
+      font-size: 1.8em;
+    }
+  }
+  .converter_item__display {
+    display: flex;
+    align-self: center;
+    border: 2px solid $main-color;
+    background: $layout-color;
+    margin: 25px;
+    border-radius: 8px;
+    width: 30%;
+    height: 10vh;
+    color: $main-color;
+  }
+  .converter_item__char_code {
+    display: flex;
+    align-self: center;
+  }
+}
