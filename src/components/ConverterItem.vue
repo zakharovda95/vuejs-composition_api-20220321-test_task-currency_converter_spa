@@ -42,16 +42,28 @@ export default {
   },
   setup() {
     const store = useStore();
+    //универсальная форма объекта текущей валюты
     const selectedCurrency = computed(
       () => store.state.converter.selectedCurrency,
     );
+    //апдейт модел валуе
     const inputValue = computed(() => store.state.converter.inputValue);
     const updateValue = payload => {
       store.commit('UPDATE_INPUT_VALUE', Number(payload));
       store.commit('CALCULATE_VALUE');
     };
+
+    const reverse = computed(() => store.state.converter.reverse);
     const exchange = () => {
-      store.commit('EXCHANGE_VALUE');
+      //реверс преобразования
+      if (!reverse.value) {
+        store.commit('REVERSE', true);
+      } else {
+        store.commit('REVERSE', false);
+      }
+      //меняем местами чаркод
+      store.commit('EXCHANGE_VALUE_CHAR_CODE');
+      store.commit('CALCULATE_VALUE');
     };
     return {
       selectedCurrency,

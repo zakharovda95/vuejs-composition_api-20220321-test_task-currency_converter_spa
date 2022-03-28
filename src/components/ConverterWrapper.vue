@@ -22,19 +22,19 @@ export default {
   components: { ConverterItem, UiDropdown },
   setup() {
     const store = useStore();
-
+    //инициализация опций дропдауна
     const options = computed(() => store.getters.CONVERTER_OPTIONS);
     store.commit('SELECT_VALUE_CONVERTER', options.value[0].value);
-
+    //инициализация объекта выбранной валюты
     const selectedValue = computed(() => store.state.converter.selectedValue);
-
+    store.dispatch('SET_SELECTED_CURRENCY');
+    //отправка нового объекта валют, пересчет значений и чаркода при выборе новой опции дропдауна
     const selectValue = payload => {
       store.commit('SELECT_VALUE_CONVERTER', payload);
       store.dispatch('SET_SELECTED_CURRENCY');
+      store.commit('EXCHANGE_VALUE_CHAR_CODE');
       store.commit('CALCULATE_VALUE');
     };
-
-    store.dispatch('SET_SELECTED_CURRENCY');
 
     return {
       options,
