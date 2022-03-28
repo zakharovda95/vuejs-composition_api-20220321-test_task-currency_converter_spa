@@ -19,11 +19,9 @@ export const converterModule = {
     SELECT_VALUE_CONVERTER: (state, payload) => {
       state.selectedValue = payload;
     },
-    INIT_SELECTED_VALUE_CONVERTER: (state, payload) => {
-      state.selectedValue = payload;
-    },
     SET_SELECTED_CURRENCY_DATA: (state, payload) => {
       state.selectedCurrency = {
+        baseCoast: payload.data.Value,
         leftNominal: state.inputValue,
         leftCharCode: payload.charCode,
         rightNominal: payload.data.Value,
@@ -34,7 +32,15 @@ export const converterModule = {
       state.inputValue = payload;
     },
     CALCULATE_VALUE: state => {
-      state.selectedCurrency.rightNominal *= state.inputValue;
+      if (state.inputValue === 1) {
+        state.selectedCurrency.rightNominal = state.selectedCurrency.baseCoast;
+      }
+      if (state.inputValue <= 0) {
+        state.selectedCurrency.rightNominal = 0;
+      }
+      if (state.inputValue !== 0) {
+        state.selectedCurrency.rightNominal *= state.inputValue;
+      }
     },
     EXCHANGE_VALUE: state => {
       if (state.selectedCurrency.rightCharCode === state.baseCurrency) {
