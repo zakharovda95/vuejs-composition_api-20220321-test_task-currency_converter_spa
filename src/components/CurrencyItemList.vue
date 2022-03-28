@@ -19,7 +19,6 @@
       <ui-dropdown
         :options="options"
         :model-value="selectedValue"
-        type="text"
         @update:model-value="selectValue"
       ></ui-dropdown>
     </div>
