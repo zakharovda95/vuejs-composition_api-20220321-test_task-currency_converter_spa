@@ -49,12 +49,14 @@ export default {
     const valueCode = computed(() => store.state.currencies.inputValueCode);
     const options = computed(() => store.state.currencies.dropdownOptions);
     const selectedValue = computed(() => store.state.currencies.selectedValue);
+    //обновление данных модели значения инпута
     const updateInputName = payload => {
       store.commit('UPDATE_VALUE_NAME', payload);
     };
     const updateInputCode = payload => {
       store.commit('UPDATE_VALUE_CODE', payload);
     };
+    //обновление данных модели значения дропдауна
     const selectValue = payload => {
       store.commit('SELECT_VALUE', payload);
     };
