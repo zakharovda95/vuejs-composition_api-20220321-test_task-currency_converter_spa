@@ -1,24 +1,24 @@
 # vuejs-composition_api-20220321-test_task-currency_converter_spa
+. Маркировка проекта:
+1) vuejs - основной язык проекта;
+2) composition_api - основная технология;
+3) 20220321 - дата инициализации проекта;
+4) test_task - тип проекта;
+5) currency_converter - название прооекта;
+6) spa - тип приложения;
 
-## Project setup
-```
-npm install
-```
+. Основные используемые библиотеки и интерфейсы:
+1) vue js - основная библиотека;
+2) vue cli - система инструментов для разработки приложения;
+3) vue router - библиотека маршрутизации;
+4) vuex 4 - глобальное хранилище;
+5) moment - библиотека форматирования даты и времени;
+6) axios - библиотека для выполнения HTTP запросов;
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+.Итоги выполнения проекта:
+1) Разработал приложение в соответствии с ТЗ;
+2) Выполнил рекоммендации указанные в ТЗ:
+  2.1) UI приложения выполнен в соответствии с требованиями, указанными в ТЗ;
+  2.2) Бизнес логика приложения вынесена в модули стора;
+  2.3) Приложение написано на языке JS, с использованием фреймворка Vue js с Composition Api подходом;
+  2.4) Выполнена декомпозиция компонентов, стилей и модулей стора;
