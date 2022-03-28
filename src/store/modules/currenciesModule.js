@@ -26,6 +26,7 @@ export const currenciesModule = {
     selectedValue: undefined,
   }),
   getters: {
+    //отформатированные даты
     DATE_NOW: state => {
       return moment(state.dateNow).format('Дата:  DD MMMM yy г. Время:  H:mm');
     },
@@ -34,6 +35,7 @@ export const currenciesModule = {
         'DD MMMM yy в H:mm.',
       );
     },
+    //отфильтрованный массив валют
     SEARCH_ARR: state => {
       return state.viewArray.filter(item => {
         if (state.selectedValue === 'charCode') {
@@ -48,10 +50,11 @@ export const currenciesModule = {
     },
   },
   mutations: {
+    //неотформатированный массив валют
     SET_UNFORMATTED_CURRENCY: (state, payload) => {
       state.unformattedCurrency = payload;
     },
-
+    //массив в едином формате, с разным номиналом
     CONVERT_CURRENCY_OBJECT: state => {
       const valute = state.unformattedCurrency.Valute;
       const formattedArray = Object.entries(valute);
@@ -62,7 +65,7 @@ export const currenciesModule = {
         };
       });
     },
-
+    //отформатированный массив с одинаковым номиналом
     FORMAT_CURRENCIES: state => {
       state.formattedCurrency.forEach(item => {
         if (item.data.Nominal === 1) {
@@ -80,12 +83,13 @@ export const currenciesModule = {
         }
       });
     },
+    //рассчет разницы курса
     CALCULATE_DIFFERENCE: state => {
       return state.formattedCurrency.forEach(item => {
         item.data.difference = item.data.Value - item.data.Previous;
       });
     },
-
+    //конечный универсальный вид массива валют
     INIT_OBJECT: state => {
       state.viewArray = state.formattedCurrency.map(item => {
         return {
@@ -99,6 +103,7 @@ export const currenciesModule = {
         };
       });
     },
+    //пересчет значений валют и чаркодов при смене реверса
     EXCHANGE: (state, id) => {
       state.viewArray.forEach(elem => {
         if (elem.id === id) {
@@ -115,15 +120,19 @@ export const currenciesModule = {
         }
       });
     },
+    //модель значения инпута (по названию)
     UPDATE_VALUE_NAME: (state, payload) => {
       state.inputValueName = payload;
     },
+    //модель значения инпута (по коду)
     UPDATE_VALUE_CODE: (state, payload) => {
       state.inputValueCode = payload;
     },
+    //значение по умолчанию
     INIT_SELECT_VALUE_CURRENCIES: state => {
       state.selectedValue = state.dropdownOptions[0].value;
     },
+    //значение дропдауна
     SELECT_VALUE: (state, payload) => {
       state.inputValueCode = '';
       state.inputValueName = '';
@@ -131,6 +140,7 @@ export const currenciesModule = {
     },
   },
   actions: {
+    //запрос на сервер и вся инициация
     INIT_CURRENCIES: async ({ commit }) => {
       try {
         const response = await axios.get(
